@@ -1,0 +1,48 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+
+    env:
+      AZURE_REGISTRY: fleetstakes.azurecr.io
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Log in to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_NAME }}.azurecr.io
+        username: ${{ secrets.AZURE_USER }}
+        password: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Build the Docker image
+      run: |
+         docker build -t $AZURE_REGISTRY/${{ github.repository }}:${{ github.sha }} .
+         docker push $AZURE_REGISTRY/${{ github.repository }}:${{ github.sha }}
+         
+    - name: Deploy to Azure VM
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.AZURE_VM_HOST }}
+        username: ${{ secrets.AZURE_VM_USER }}
+        key: ${{ secrets.AZURE_VM_SSH_KEY }}
+        script: |   
+          sudo -i <<EOF
+          docker pull fleetstakes.azurecr.io/${{ github.repository }}:${{ github.sha }}
+          docker stop atlanta
+          docker rm atlanta
+          docker run -d -p 9020:9020 --name atlanta fleetstakes.azurecr.io/${{ github.repository }}:${{ github.sha }}
+
+
+
