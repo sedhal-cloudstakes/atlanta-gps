@@ -223,7 +223,7 @@ async function getVehiclesByIMEI(imeiNumber, Ignitation, speed, latitude, longit
   }
 };
 
-const PORT = 9001;
+const PORT = 9020;
 server.listen(PORT, async () => {
   await db.mongoose.connect(URL, {
     dbName: DB_NAME,
