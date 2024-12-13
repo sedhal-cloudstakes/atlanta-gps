@@ -40,8 +40,8 @@ jobs:
         script: |   
           sudo -i <<EOF
           docker pull fleetstakes.azurecr.io/${{ github.repository }}:${{ github.sha }}
-          docker stop atlanta
-          docker rm atlanta
+          #docker stop atlanta
+          #docker rm atlanta
           docker run -d -p 9020:9020 --name atlanta fleetstakes.azurecr.io/${{ github.repository }}:${{ github.sha }}
 
 
