@@ -99,6 +99,7 @@ function parsePacket(packetString) {
 
 // Location data packet
 function parseLocationPacket(locationDataArray) {
+  console.log("Packet length:", locationDataArray.length);
   const locationData = {
     startCharacter: locationDataArray[0], // '$CP'
     header: locationDataArray[1], // 'ASP'
@@ -133,7 +134,7 @@ function parseLocationPacket(locationDataArray) {
     mnc: locationDataArray[30], // '98'
     lac: locationDataArray[31], // '1546'
     cellId: locationDataArray[32], // 'ad4'
-    distance: locationDataArray[52],
+    distance: locationDataArray[35],
     endCharacter: locationDataArray[48], // '()*DC\r\n'
     checksum: locationDataArray[49], // Checksum if available
   };
