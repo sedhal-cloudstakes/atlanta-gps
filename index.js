@@ -134,9 +134,9 @@ function parseLocationPacket(locationDataArray) {
     mnc: locationDataArray[30], // '98'
     lac: locationDataArray[31], // '1546'
     cellId: locationDataArray[32], // 'ad4'
-    distance: locationDataArray[47],
-    endCharacter: locationDataArray[48], // '()*DC\r\n'
-    checksum: locationDataArray[49], // Checksum if available
+    distance: locationDataArray[48],
+    endCharacter: locationDataArray[51], // '()*DC\r\n'
+    checksum: locationDataArray[52], // Checksum if available
   };
   return locationData;
 }
