@@ -38,7 +38,7 @@ const server = net.createServer(async (socket) => {
         }
         vehicleData = await getVehiclesByIMEI(ImeiNumber, jsonData.ignition, jsonData.speed, jsonData.lat, jsonData.lng);
         if (vehicleData !== undefined && vehicleData !== null && vehicleData !== '' && vehicleData?._id !== undefined && vehicleData?._id !== null && vehicleData?._id !== '') {
-          console.log("vehicle found!");
+        
           jsonData.vehicleNo = vehicleData.vehicleNo;
           jsonData.tripVehicleStatus = vehicleData.tripVehicleStatus;
           const lastIgnationStatus = await Location.findOne({ vehicleId: new ObjectId(vehicleData._id) }).sort({ createdAt: -1 });
@@ -93,7 +93,7 @@ function parsePacket(packetString) {
   } else if (dataArray[4] === "OBD" && dataArray[2] === "ASP") {
     return { type: 'CanDataPacket', data: parseCanDataPacket(dataArray) };
   } else {
-    throw new Error("Unknown packet type");
+    console.log("Unknown packet type");
   }
 }
 
@@ -133,6 +133,7 @@ function parseLocationPacket(locationDataArray) {
     mnc: locationDataArray[30], // '98'
     lac: locationDataArray[31], // '1546'
     cellId: locationDataArray[32], // 'ad4'
+    distance: locationDataArray[52],
     endCharacter: locationDataArray[48], // '()*DC\r\n'
     checksum: locationDataArray[49], // Checksum if available
   };
