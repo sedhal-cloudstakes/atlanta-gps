@@ -87,7 +87,9 @@ const server = net.createServer(async (socket) => {
 });
 
 function parsePacket(packetString) {
+  console.log("packetString>>>>>>>>", packetString);
   const dataArray = packetString.split(",");
+  console.log("dataArray", dataArray);
   if (dataArray[0] === "$CP" && dataArray[2].startsWith("V")) {
     return { type: 'LocationPacket', data: parseLocationPacket(dataArray) };
   } else if (dataArray[4] === "OBD" && dataArray[2] === "ASP") {
