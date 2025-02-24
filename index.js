@@ -124,17 +124,17 @@ function parseLocationPacket(locationDataArray) {
     hdop: locationDataArray[20], // '0.6'
     networkOperator: locationDataArray[21], // 'Airtel'
     ignitionStatus: locationDataArray[22], // '0'
-    mainPowerStatus: locationDataArray[23], // '1'
+    mainPowerStatus: locationDataArray[23], // '1' Wirecuts status
     mainInputVoltage: locationDataArray[24], // '24.3'
     internalBatteryVoltage: locationDataArray[25], // '3.9'
     emergencyStatus: locationDataArray[26], // '0'
     tamperAlert: locationDataArray[27], // 'C'
-    gsmSignalStrength: locationDataArray[28], // '31'
+    gsmSignalStrength: locationDataArray[28], // '31' GSM signal
     mcc: locationDataArray[29], // '404'
     mnc: locationDataArray[30], // '98'
     lac: locationDataArray[31], // '1546'
     cellId: locationDataArray[32], // 'ad4'
-    distance: locationDataArray[50],
+    distance: locationDataArray[47],
     endCharacter: locationDataArray[48], // '()*DC\r\n'
     checksum: locationDataArray[49], // Checksum if available
   };
