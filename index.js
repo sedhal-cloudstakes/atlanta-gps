@@ -11,6 +11,9 @@ const { getAddressQuery, addNotificationToDb } = require("./lib/Helper");
 
 const server = net.createServer(async (socket) => {
   socket.on("data", async (data) => {
+    console.log("data", data);
+    const packetLengthData = data.length;
+    console.log("packetLengthData", packetLengthData);
     try {
       var vehicleData;
       var packetString = data.toString("utf8");
